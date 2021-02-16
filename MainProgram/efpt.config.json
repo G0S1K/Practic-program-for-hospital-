@@ -1,0 +1,73 @@
+﻿{
+   "ContextClassName": "Program_V1Context",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": "Data",
+   "OutputPath": "Models",
+   "ProjectRootNamespace": "Main_Program",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[Departments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Products]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Requests]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RequestsProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Roles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Stores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Users]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[QuantityProd]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[QuantityProdDepartment1]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[QuantityProdDepartment2]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[QuantityProdDepartment3]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[QuantityProdGlavMed]",
+         "ObjectType": 1
+      }
+   ],
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseNodaTime": false,
+   "UseSpatial": false
+}

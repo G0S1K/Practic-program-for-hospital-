@@ -1,0 +1,451 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Main_Program"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="Main_Program.GlavMedWindow"
+        mc:Ignorable="d"
+        Title="Склад глав мед" Height="450" Width="800"
+        MaxHeight="450" MaxWidth="800"
+        MinHeight="450" MinWidth="800"
+        
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/logo.png">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml"/>
+                <!-- throw in some extra colour for our floating action button -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <materialDesign:DialogHost
+        Identifier="RootDialog"
+        DialogTheme="Inherit">
+
+            <!-- Хост для отрисовки меню -->
+            <materialDesign:DrawerHost
+            IsLeftDrawerOpen="{Binding IsChecked, ElementName=MenuToggleButton}">
+
+
+                <!-- Само меню -->
+                <materialDesign:DrawerHost.LeftDrawerContent>
+                    <DockPanel MinWidth="220">
+
+                        <!-- Кнопка стрелка для закрытия меню -->
+                        <ToggleButton 
+                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                        DockPanel.Dock="Top"
+                        HorizontalAlignment="Right" 
+                        Margin="16"
+                        IsChecked="{Binding IsChecked, ElementName=MenuToggleButton, Mode=TwoWay}"/>
+
+                        <!-- Список пунктов меню -->
+                        <ListBox 
+                        x:Name="DemoItemsListBox" 
+                        Margin="0 16 0 16"
+                        SelectedIndex="{Binding SelectedIndex}"
+                        SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding DemoItems}">
+                            <ListBox.Resources>
+                                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
+                            </ListBox.Resources>
+
+                            <!-- Список пунктов меню -->
+                            <ListBoxItem FontSize="20" >
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="200"
+                                    Cursor="Hand" Click="Button_Click" Content="Добавить" />
+                            </ListBoxItem>
+
+                            <ListBoxItem FontSize="20" >
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="200"
+                                    Cursor="Hand" Content="Печать запроса" Click="PechatZaprosa"/>
+                            </ListBoxItem>
+
+                            <ListBoxItem FontSize="20" >
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="200"
+                                    Cursor="Hand" Content="Печать кол на складе" Click="PechatKol" />
+                            </ListBoxItem>
+                            
+                            <ListBoxItem FontSize="20" >
+                                <Button
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="200"
+                                    Cursor="Hand" Content="Excel" Click="Button_Click_2" />
+                            </ListBoxItem>
+
+                        </ListBox>
+                    </DockPanel>
+                </materialDesign:DrawerHost.LeftDrawerContent>
+
+                <!-- Позволит привязать полоску к верхней части формы -->
+                <DockPanel>
+
+                    <!-- Полоска вверху формы -->
+                    <materialDesign:ColorZone
+                    Padding="16"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    Mode="PrimaryMid"
+                    DockPanel.Dock="Top">
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal">
+
+                                <!-- Кнопка для открытия меню -->
+                                <ToggleButton
+                                x:Name="MenuToggleButton"
+                                Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                IsChecked="False"/>
+
+                            </StackPanel>
+
+                            <!-- три точки справа -->
+                            <materialDesign:PopupBox
+                            DockPanel.Dock="Right"
+                            PlacementMode="BottomAndAlignRightEdges"
+                            StaysOpen="False">
+                                <StackPanel>
+
+                                    <!-- Кнопки, которые видны при нажатии на три точки -->
+                                    <StackPanel
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="10">
+                                        <TextBlock
+                                        Text="Light"
+                                        Margin="0 0 10 0"/>
+                                        <ToggleButton
+                                        x:Name="DarkModeToggleButton"
+                                        Click="MenuDarkModeButton_Click"/>
+                                        <TextBlock
+                                        Text="Dark"
+                                        Margin="10 0 0 0"/>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+
+                            <!-- Надпись на панели сверху -->
+                            <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="30"
+                            AutomationProperties.Name="Material Design In XAML Toolkit"
+                            Text="Склад главной медсетры"/>
+                        </DockPanel>
+                    </materialDesign:ColorZone>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Width="130"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Height="40"
+                            materialDesign:ButtonAssist.CornerRadius="25 25 0 0"
+                            Cursor="Hand" Click="Kolich_Click1">
+                                <TextBlock Text="Склад" />
+                            </Button>
+
+                            <Button
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Width="130"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Height="40"
+                            materialDesign:ButtonAssist.CornerRadius="25 25 0 0"
+                            Cursor="Hand" Click="Kolich_Click2">
+                                <TextBlock Text="Количество" />
+                            </Button>
+
+                            <Button
+                            Grid.Row="0"
+                                    Grid.Column="2"
+                            Width="130"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Height="40"
+                            materialDesign:ButtonAssist.CornerRadius="25 25 0 0"
+                            Cursor="Hand" Click="Kolich_Click3">
+                                <TextBlock Text="Добавленные" />
+                            </Button>
+
+                            <Button
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Height="40"
+                            materialDesign:ButtonAssist.CornerRadius="25 25 0 0" Cursor="Hand" Click="Kolich_Click4">
+                                <TextBlock Text="Удаленные" />
+                            </Button>
+
+                            <StackPanel Orientation="Horizontal" Margin="15 0 0 0" Grid.Column="4">
+                                <TextBox materialDesign:HintAssist.Hint="Введите строку" x:Name="RowId"  Width="100" Height="26" TextChanged="RowId_TextChanged"/>
+                            </StackPanel>
+                            <materialDesign:PopupBox
+                            Grid.Column="5"
+                            Margin="20 0 0 0"
+                            Width="40"
+                            Height="40"
+                            Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                            PlacementMode="BottomAndAlignCentres"
+                            Opened="PopupBox_OnOpened"
+                            Closed="PopupBox_OnClosed" Cursor="Hand">
+                                <StackPanel>
+                                    <Button
+                                    ToolTip="Удаление" Click="Button_Del">
+                                        <materialDesign:PackIcon Kind="DeleteForever"  Height="22" Width="31" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                    </Button>
+                                    <Button
+                                    ToolTip="Редактирование" Click="Button_Edit">
+                                        <materialDesign:PackIcon Kind="CircleEditOutline" Height="22" Width="31" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Button>
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+                        </Grid>
+
+                        <syncfusion:SfDataGrid 
+                          Grid.Row="1"
+                          x:Name="proguctsGrid1"
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Center" 
+                            Height="305"
+                            ColumnSizer="Star"
+                            AllowFiltering="True"
+                            
+                            Visibility="Hidden">
+                            <syncfusion:SfDataGrid.Columns>
+                                <syncfusion:GridTextColumn MappingName="ProductName" HeaderText="Препарат" />
+                                <syncfusion:GridTextColumn MappingName="Quantity" HeaderText="Количество" />
+                            </syncfusion:SfDataGrid.Columns>
+                        </syncfusion:SfDataGrid>
+                        
+                        <!--<DataGrid
+                          Grid.Row="1"
+                          x:Name="proguctsGrid1"
+                          ItemsSource="{Binding Items3}"
+                          CanUserSortColumns="True"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          Visibility="Hidden"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="8" IsReadOnly="True" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                  Binding="{Binding ProductName}"
+                                  Header="ProductName"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding Quantity}"
+                                  Header="Quantity" 
+                                  MaxLength="255"/>
+                            </DataGrid.Columns>
+                        </DataGrid>-->
+
+
+                        <syncfusion:SfDataGrid 
+                          Grid.Row="1"
+                          x:Name="proguctsGrid2"
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Center" 
+                            Height="305"
+                            ColumnSizer="Star"
+                            AllowFiltering="True"
+                            
+                            Visibility="Hidden">
+                            <syncfusion:SfDataGrid.Columns>
+                                <syncfusion:GridTextColumn MappingName="ProductName" HeaderText="Препарат" />
+                                <syncfusion:GridTextColumn MappingName="Quantity" HeaderText="Количество" />
+                            </syncfusion:SfDataGrid.Columns>
+                        </syncfusion:SfDataGrid>
+                        
+                        <!--<DataGrid
+                          Grid.Row="1"
+                          x:Name="proguctsGrid2"
+                          ItemsSource="{Binding Items3}"
+                          CanUserSortColumns="True"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          Visibility="Hidden"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="8" IsReadOnly="True" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                  Binding="{Binding ProductName}"
+                                  Header="ProductName"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding Quantity}"
+                                  Header="Quantity" 
+                                  MaxLength="255"/>
+                            </DataGrid.Columns>
+                        </DataGrid>-->
+
+                        <syncfusion:SfDataGrid 
+                          Grid.Row="1"
+                          x:Name="proguctsGrid3"
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Center" 
+                            Height="305"
+                            ColumnSizer="Star"
+                            AllowFiltering="True"
+                            AutoGenerateColumns="False"
+                            Visibility="Hidden">
+                            <syncfusion:SfDataGrid.Columns>
+                                <syncfusion:GridTextColumn MappingName="IdRequest" HeaderText="Номер заказа"/>
+                                <syncfusion:GridTextColumn MappingName="SroreАppointment" HeaderText="Назначение"/>
+                                <syncfusion:GridTextColumn MappingName="Date" HeaderText="Дата"/>
+                                <syncfusion:GridTextColumn MappingName="Name" HeaderText="Препарат"/>
+                                <syncfusion:GridTextColumn MappingName="Quantity" HeaderText="Количество" />
+                            </syncfusion:SfDataGrid.Columns>
+                        </syncfusion:SfDataGrid>
+                        
+                        <!--для второй кнопки-->
+                        <!--<DataGrid
+                          Grid.Row="1"
+                          x:Name="proguctsGrid3"
+                          ItemsSource="{Binding Items3}"
+                          CanUserSortColumns="True"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          Visibility="Hidden"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="8" IsReadOnly="True" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                  Binding="{Binding IdRequest}"
+                                  Header="IdRequest"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding SroreАppointment}"
+                                  Header="SroreАppointment" 
+                                  MaxLength="255"/>
+
+
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding Date}"
+                                  Header="Date"
+                                  MaxLength="255"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding Name}"
+                                  Header="Name"
+                                  MaxLength="255"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding Quantity}"
+                                  Header="Quantity"
+                                  MaxLength="255"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>-->
+
+                        <syncfusion:SfDataGrid 
+                          Grid.Row="1"
+                          x:Name="proguctsGrid4"
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Center" 
+                            Height="305"
+                            ColumnSizer="Star"
+                            AllowFiltering="True"
+                            AutoGenerateColumns="False"
+                            Visibility="Hidden">
+                            <syncfusion:SfDataGrid.Columns>
+                                <syncfusion:GridTextColumn MappingName="IdRequest" HeaderText="Номер заказа"/>
+                                <syncfusion:GridTextColumn MappingName="SroreАppointment" HeaderText="Назначение"/>
+                                <syncfusion:GridTextColumn MappingName="Date" HeaderText="Дата"/>
+                                <syncfusion:GridTextColumn MappingName="Name" HeaderText="Препарат"/>
+                                <syncfusion:GridTextColumn MappingName="Quantity" HeaderText="Количество" />
+                            </syncfusion:SfDataGrid.Columns>
+                        </syncfusion:SfDataGrid>
+
+                        <!--это для третьей кнопки-->
+                        <!--<DataGrid    
+                          Grid.Row="1"
+                          x:Name="proguctsGrid4"
+                          Visibility="Hidden"
+                          ItemsSource="{Binding Items3}"
+                          CanUserSortColumns="True"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="8" IsReadOnly="True" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                  Binding="{Binding IdRequest}"
+                                  Header="IdRequest"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding SroreАppointment}"
+                                  Header="SroreАppointment" 
+                                  MaxLength="255"/>
+
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding Date}"
+                                  Header="Date"
+                                  MaxLength="255"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding Name}"
+                                  Header="Name"
+                                  MaxLength="255"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                                <materialDesign:DataGridTextColumn
+                                  Binding="{Binding Quantity}"
+                                  Header="Quantity"
+                                  MaxLength="255"
+                                  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>-->
+
+                        
+
+                    </Grid>
+                </DockPanel>
+            </materialDesign:DrawerHost>
+        </materialDesign:DialogHost>
+    </Grid>
+</Window>

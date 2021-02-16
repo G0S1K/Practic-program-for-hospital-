@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="AddAdminWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AddDepartments1Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AddDepartments2Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AddDepartments3Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AddGlavMedWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AdminWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Departments1Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Departments2Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Departments3Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EditAdminWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EditDepartments1Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EditDepartments2Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EditDepartments3Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EditGlavMedWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GlavMedWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UsedDepartments1Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UsedDepartments2Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UsedDepartments3Window.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AddAdminWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AddDepartments1Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AddDepartments2Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AddDepartments3Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AddGlavMedWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AdminWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Departments1Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Departments2Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Departments3Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EditAdminWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EditDepartments1Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EditDepartments2Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EditDepartments3Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EditGlavMedWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GlavMedWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UsedDepartments1Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UsedDepartments2Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UsedDepartments3Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>
